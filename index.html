@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Sets character encoding to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
+    <title>Minimalist CV</title> <!-- Title of the webpage -->
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> <!-- Link to Google Fonts for custom font -->
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Link to Font Awesome for icons -->
+
+    <style>
+        /* CSS Styles */
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Sets the font family */
+            background-color: #f0f4f8; /* Light background color */
+            margin: 0; /* Removes default margin */
+            padding: 0; /* Removes default padding */
+            overflow-x: hidden; /* Prevents horizontal scrolling */
+        }
+
+        .main-container {
+            display: flex; /* Uses Flexbox layout */
+            overflow-x: hidden; /* Hides horizontal overflow */
+            scroll-behavior: smooth; /* Smooth scrolling when navigating */
+            height: 100vh; /* Full height of the viewport */
+        }
+
+        .section {
+            flex: 0 0 100vw; /* Each section takes the full width of the viewport */
+            height: 100vh; /* Each section takes the full height of the viewport */
+            padding: 40px; /* Padding around content */
+            box-sizing: border-box; /* Includes padding in width calculations */
+            display: flex; /* Uses Flexbox layout for content inside */
+            flex-direction: column; /* Aligns items vertically */
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            opacity: 0; /* Initially hidden for the fade-in animation */
+            transform: translateY(30px); /* Start slightly lower for slide-up effect */
+        }
+
+        .section:nth-child(1) { background-color: #ffffff; } /* First section background */
+        .section:nth-child(2) { background-color: #f9fafc; } /* Second section background */
+        .section:nth-child(3) { background-color: #ffffff; } /* Third section background */
+
+        h2 {
+            font-size: 32px; /* Font size for headings */
+            font-weight: 600; /* Bold weight for headings */
+            color: #333; /* Dark color for text */
+            margin-bottom: 20px; /* Space below heading */
+        }
+
+        p, ul {
+            font-size: 18px; /* Font size for paragraphs and lists */
+            color: #555; /* Medium gray color for text */
+            font-weight: 300; /* Lighter weight for text */
+            align-items: center;
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+            
+        }
+
+        ul {
+            list-style: none; /* Removes default bullet points from lists */
+            padding: 0; /* Removes default padding */
+            align-items: center;
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+        }
+
+        ul li {
+            margin: 10px 0; /* Space between list items */
+            align-items: center;
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+            
+        }
+
+        .photo {
+            margin-bottom: 20px; /* Space below photo */
+            scale: 100px;
+        }
+
+        .photo img {
+            width: 180px; /* Width of the profile photo */
+            height: 180px; /* Height of the profile photo */
+            border-radius: 50%; /* Makes the photo circular */
+            object-fit: cover; /* Ensures the image covers the container */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+
+        /* Navigation buttons */
+        .nav {
+            position: fixed; /* Fixed position for scrolling */
+            top: 20px; /* Distance from the top */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust to center */
+            display: flex; /* Uses Flexbox layout */
+            gap: 15px; /* Space between buttons */
+            z-index: 999; /* Keeps buttons on top of other elements */
+        }
+
+        .nav button {
+            padding: 15px 30px; /* Space inside buttons */
+            font-size: 18px; /* Font size for button text */
+            border: 2px solid transparent; /* Initial border is transparent */
+            background-color: white; /* White background for buttons */
+            color: black; /* Black text color */
+            cursor: pointer; /* Cursor changes to pointer on hover */
+            border-radius: 5px; /* Rounded corners */
+            font-weight: 600; /* Bold weight for button text */
+            transition: border-color 0.3s ease; /* Smooth transition for border on hover */
+        }
+
+        .nav button:hover {
+            border-color: black; /* Black border on hover */
+        }
+
+        /* Social Icons */
+        .social-links a {
+            text-decoration: none; /* Removes underline from links */
+            color: #555; /* Medium gray color for icons */
+            font-size: 36px; /* Increased font size for larger icons */
+            margin: 0 20px; /* Space between icons */
+            transition: color 0.3s ease; /* Smooth transition for icon color */
+        }
+
+        .social-links a:hover {
+            color: #4a90e2; /* Change color on hover */
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards; /* Fade-in animation applied */
+        }
+
+        /* Button animations */
+        .button-left {
+            animation: slideInLeft 0.5s ease forwards; /* Slide in from the left */
+        }
+
+        .button-top {
+            animation: slideInTop 0.5s ease forwards; /* Slide in from the top */
+        }
+
+        .button-right {
+            animation: slideInRight 0.5s ease forwards; /* Slide in from the right */
+        }
+
+        /* Keyframes for the slide animations */
+        @keyframes slideInLeft {
+            0% {
+                transform: translateX(-100%); /* Start off-screen to the left */
+                opacity: 0; /* Start invisible */
+            }
+            100% {
+                transform: translateX(0); /* Move to original position */
+                opacity: 1; /* Fully visible */
+            }
+        }
+
+        @keyframes slideInTop {
+            0% {
+                transform: translateY(-100%); /* Start off-screen above */
+                opacity: 0; /* Start invisible */
+            }
+            100% {
+                transform: translateY(0); /* Move to original position */
+                opacity: 1; /* Fully visible */
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%); /* Start off-screen to the right */
+                opacity: 0; /* Start invisible */
+            }
+            100% {
+                transform: translateX(0); /* Move to original position */
+                opacity: 1; /* Fully visible */
+            }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0; /* Start completely transparent */
+                transform: translateY(30px); /* Start slightly lower */
+            }
+            100% {
+                opacity: 1; /* Fully visible */
+                transform: translateY(0); /* Final position */
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            p, ul {
+                font-size: 16px; /* Smaller font size for mobile */
+            }
+
+            .nav button {
+                padding: 10px 20px; /* Smaller padding for buttons */
+                font-size: 16px; /* Smaller font size for button text */
+            }
+
+            .social-links a {
+                font-size: 30px; /* Slightly smaller for mobile */
+                margin: 0 15px; /* Adjusted margin */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation buttons to scroll -->
+<div class="nav">
+    <button class="button-left" onclick="scrollToSection(0)">Info</button> <!-- Button to scroll to Info section -->
+    <button class="button-top" onclick="scrollToSection(1)">Skills</button> <!-- Button to scroll to Skills section -->
+    <button class="button-right" onclick="scrollToSection(2)">Socials</button> <!-- Button to scroll to Socials section -->
+</div>
+
+<!-- Main container that holds all sections -->
+<div class="main-container" id="main-container">
+    <!-- Info section -->
+    <div class="section" id="info">
+        <div class="photo">
+            <img src="https://i.pinimg.com/originals/f9/90/23/f990235744e6fc1025b5fe9fbf492deb.jpg" alt="Profile Photo"> <!-- Profile photo -->
+        </div>
+        <h2>Personal Information</h2> <!-- Heading for personal information -->
+        <p>Bytsan Timofei</p> <!-- Personal name -->
+        <p>HSE Student</p> <!-- Personal profession -->
+        <p>tobytsan@edu.hse.ru</p> <!-- Personal email -->
+    </div>
+
+    <!-- Skills section -->
+    <div class="section" id="skills">
+        <h2>Skills</h2> <!-- Heading for skills -->
+        <ul>
+            <p>Python</p> <!-- Skill 2 -->
+            <li>C++</li> <!-- Skill 3 -->
+            <li>Algorythm master</li> <!-- Skill 4 -->
+            <li>Sleep 8 hours per day</li> <!-- Skill 1 -->
+            <li>97 points EGE Russian language</li> <!-- Skill 1 -->
+        </ul>
+    </div>
+
+    <!-- Socials section -->
+    <div class="section" id="socials">
+        <h2>Social Links</h2> <!-- Heading for social links -->
+        <div class="social-links">
+            <a href="https://github.com/toximu"><i class="fab fa-github"></i></a> <!-- GitHub icon link -->
+            <a href="https://t.me/toxximu"><i class="fab fa-telegram"></i></a> <!-- Telegram icon link -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript for scrolling to sections and animations
+
+    // Scroll to the specific section based on index
+    function scrollToSection(index) {
+        const container = document.getElementById('main-container'); // Get the main container
+        const sectionWidth = window.innerWidth; // Get the current viewport width
+        container.scrollTo({
+            left: index * sectionWidth, // Calculate scroll position
+            behavior: 'smooth' // Smooth scrolling
+        });
+    }
+
+    // Adding fade-in animation when the page loads
+    window.onload = function () {
+        const sections = document.querySelectorAll('.section'); // Get all sections
+        sections.forEach((section, index) => {
+            setTimeout(() => {
+                section.classList.add('fade-in'); // Add fade-in class with delay
+            }, index * 200); // Delay between each section's appearance
+        });
+
+        // Trigger animations for buttons
+        const buttons = document.querySelectorAll('.nav button'); // Get all buttons
+        buttons.forEach((button, index) => {
+            setTimeout(() => {
+                button.classList.add(`button-${index === 0 ? 'left' : index === 1 ? 'top' : 'right'}`); // Add animation class based on index
+            }, (index + 1) * 300); // Delay for button animations
+        });
+    };
+</script>
+
+</body>
+</html>
